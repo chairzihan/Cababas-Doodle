@@ -1,0 +1,10 @@
+
+
+body { 
+    margin: 0; 
+}
+canvas { 
+    display: block; 
+    background: #1a1a2e;
+    cursor: crosshair;
+}
