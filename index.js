@@ -1,6 +1,9 @@
-let shapes = ["horizontal line", "vertical line", "lightning bolt", "v", "caret"];
+let shapes = ["square", "circle", "triangle",];
 
-for (let shape of shapes)
-    {
-        console.log(shape);
-    }
+//randomly chooses a shape from the array
+function getRandomShape(shapesArray)
+{
+    return shapesArray[Math.floor(Math.random() * shapesArray.length)]
+}
+
+console.log("Random Shape: ", getRandomShape(shapes));
