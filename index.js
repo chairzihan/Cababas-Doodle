@@ -10,9 +10,17 @@ let randomShape = getRandomShape(shapes);
 
 console.log("Random Shape: ", randomShape);
 
-let speech = new SpeechSynthesisUtterance();
-speech.text = randomShape;
-speech.volume = 20;
+//stores the random text to speech shape in a variable
+let speech = new SpeechSynthesisUtterance(randomShape);
+
+speech.volume = 1;
 speech.rate = 1;
 speech.pitch = 1;
-window.speechSynthesis.speak(speech);
+
+//loads the voices and allows the text to speech to occur once the voices have loaded
+window.speechSynthesis.onvoiceschanged = function()
+{
+    window.speechSynthesis.speak(speech); 
+}
+
+
