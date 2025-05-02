@@ -5,9 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahou Shoujo Cababas</title>
     <link rel="stylesheet" href="style.css">
+
+
 </head>
 <body>
     <img src="/Cababas/Cababas Default.png" height="300" id="cababas">
    <script src="index.js"></script>
+
+   <div id="container">
+    <video autoplay="true" id="videoElement">
+        
+    </video>
+   </div>
+
+   <script>
+    let video = document.querySelector("#videoElement");
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({video: true})
+        .then(function (stream){
+            video.srcObject = stream;
+        })
+        .catch (function(error){
+            console.log("Something went wrong");
+        })
+    }
+    else
+    {
+        console.log("getUserMedia not supported!")
+    }
+   </script>
 </body>
 </html>
