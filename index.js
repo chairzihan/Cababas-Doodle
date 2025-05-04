@@ -10,7 +10,7 @@ const canvas = document.getElementById('gameCanvas');
             points: [],
             directions: [],
             lastDirection: null
-        };
+        }; 
 
         // Direction constants
         const DIRECTION = {
@@ -33,7 +33,7 @@ const canvas = document.getElementById('gameCanvas');
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.moveTo(e.offsetX, e.offsetY);
-            resultDiv.textContent = "Drawing...";
+            resultDiv.textContent = "Casting...";
         }
 
         function draw(e) {
@@ -59,7 +59,7 @@ const canvas = document.getElementById('gameCanvas');
             
             setTimeout(() => {
                 recognizeShape();
-                // Clear drawing after recognition
+
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             }, 100);
         }

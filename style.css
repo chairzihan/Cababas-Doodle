@@ -1,7 +1,9 @@
-body { margin: 0; font-family: Arial; }
+        body { 
+            margin: 0; 
+            font-family: Arial; 
+        }
         canvas { 
             display: block; 
-            background: #1a1a2e;
             cursor: crosshair;
             border-radius: 10px;
         }
