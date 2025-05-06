@@ -3,20 +3,17 @@
     <head>
         <title>Cababas Doodle</title>
         <link rel="stylesheet" href="style.css">
-        <script src="index.js" defer></script>
+        <script src="index.js"></script>
     </head>
     <body>
         <div id="ui">
-            <div>Cast your spell</div>
-            <div id="result">Waiting...</div>
+            <div>Health: <span id="health">100</span></div>
+            <div>Score: <span id="score">0</span></div>
+            <div id="spell-feedback">Draw to cast spells!</div>
         </div>
-        <div id="stats">
-            <div id="health"></div>
-            <div id="mana"></div>
-        </div>
-        <div id="cab"></div>
-        <canvas id="enemyCanvas"></canvas>
         <canvas id="gameCanvas"></canvas>
+        
+        <script src="gameLoop.js" type="module"></script>
     </body>
 
 </html>

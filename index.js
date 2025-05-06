@@ -1,7 +1,7 @@
 const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const resultDiv = document.getElementById('result');
-        canvas.width = 800;
+        canvas.width = 1200;
         canvas.height = 600;
 
         // Game state
@@ -59,7 +59,6 @@ const canvas = document.getElementById('gameCanvas');
             
             setTimeout(() => {
                 recognizeShape();
-
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
             }, 100);
         }
@@ -80,7 +79,7 @@ const canvas = document.getElementById('gameCanvas');
                 direction = dy > 0 ? DIRECTION.DOWN : DIRECTION.UP;
             }
             
-            // Only add if direction changed
+            // Only add if direction changed NEEDS TO BE FIXED
             if (direction !== game.lastDirection) {
                 game.directions.push(direction);
                 game.lastDirection = direction;
