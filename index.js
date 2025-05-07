@@ -1,4 +1,4 @@
-let shapes = ["square", "circle", "triangle"];
+let shapes = ["swipe up", "swipe down", "swipe right", "swipe right"];
 
 //randomly chooses a shape from the array
 function speakRandomShape()
