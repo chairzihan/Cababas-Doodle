@@ -54,26 +54,36 @@ class Enemy {
     }
     
     draw(ctx) {
+
+        const arrowMap = {
+            'up': '↑',
+            'down': '↓',
+            'left': '←',
+            'right': '→'
+        };
         // Enemy box
+
         ctx.fillStyle = '#ff5555';
         ctx.fillRect(this.x - this.width/2, this.y - this.height/2, this.width, this.height);
         
         // Sequence indicators
         this.sequence.forEach((dir, i) => {
-            ctx.fillStyle = i < this.currentStep ? '#00ff00' : '#ffffff';
+            ctx.fillStyle = i < this.currentStep ? '#00ff00' : '#ffffff'; // Green for completed steps
             ctx.fillRect(
-                this.x - this.width/2 + i * 20, 
-                this.y - this.height/2 - 30, 
-                15, 
+                this.x - this.width / 2 + i * 20,
+                this.y - this.height / 2 - 30,
+                15,
                 15
             );
             
             // Direction text
             ctx.fillStyle = '#000';
-            ctx.font = '10px Arial';
-            ctx.fillText(dir[0].toUpperCase(), 
-                this.x - this.width/2 + i * 20 + 3, 
-                this.y - this.height/2 - 20);
+        ctx.font = '14px Arial';
+        ctx.fillText(
+            arrowMap[dir], // Use the arrow corresponding to the direction
+            this.x - this.width / 2 + i * 20 + 3,
+            this.y - this.height / 2 - 20
+             );
         });
     }
     
