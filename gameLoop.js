@@ -263,3 +263,6 @@ document.addEventListener('keydown', (e) => {
 
 // Start game
 requestAnimationFrame(gameLoop);
+
+document.getElementById('resume-button').addEventListener('click', togglePause);
+document.getElementById('restart-button').addEventListener('click', restartGame);
