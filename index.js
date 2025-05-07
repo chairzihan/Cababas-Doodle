@@ -6,12 +6,13 @@ function speakRandomShape()
     let randomShape = shapes[Math.floor(Math.random() * shapes.length)];
     console.log("Random Shape: ", randomShape);
 
+    //sets up the speech synthesis
     let speech = new SpeechSynthesisUtterance(randomShape);
     speech.volume = 1;
     speech.rate = 1;
     speech.pitch = 1;
 
-   
+   //actually speaks the shape
     window.speechSynthesis.speak(speech);
     
 
@@ -22,7 +23,7 @@ function speakRandomShape()
     };
 }
 
-//start the loop after voices are loaded
+//start the loop after voices are loaded (without this, I wasn't able to hear any of the speech)
 window.speechSynthesis.onvoiceschanged = function()
 {
     speakRandomShape();
