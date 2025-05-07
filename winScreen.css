@@ -1,0 +1,40 @@
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    z-index: 100;
+    display: none;
+}
+
+.screen button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.screen button {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s;
+}
+
+.screen button:hover {
+    background: #ddd;
+    transform: scale(1.05);
+}
+
+#game-over-screen {
+    background: rgba(200, 0, 0, 0.8);
+}

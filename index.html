@@ -3,6 +3,7 @@
     <head>
         <title>Cababas Doodle</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="winScreen.css">
         <script src="index.js"></script>
     </head>
     <body>
@@ -14,6 +15,24 @@
         <canvas id="gameCanvas"></canvas>
         
         <script src="gameLoop.js" type="module"></script>
+        <div id="pause-screen" class="screen">
+            <h2>Game Paused</h2>
+            <button onclick="resumeGame()">Resume</button>
+            <button onclick="restartGame()">Restart</button>
+        </div>
+        
+        <div id="win-screen" class="screen">
+            <h2>You Won!</h2>
+            <p>Final Score: <span id="final-score">0</span></p>
+            <button onclick="restartGame()">Play Again</button>
+        </div>
+
+        <div id="game-over-screen" class="screen">
+            <h2>Game Over</h2>
+            <p>Score: <span id="game-over-score">0</span></p>
+            <button onclick="restartGame()">Try Again</button>
+        </div>
+        
     </body>
 
 </html>

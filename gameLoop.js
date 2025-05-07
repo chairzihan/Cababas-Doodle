@@ -9,13 +9,16 @@ const game = {
     player: { x: 100, y: canvas.height/2, width: 50, height: 50 },
     enemies: [],
     lastSpawnTime: 0,
-    spawnInterval: 2000,
+    spawnInterval: 5000,
     difficulty: 1,
     health: 100,
     score: 0,
     drawing: false,
     points: [],
-    directions: []
+    directions: [],
+    isPaused: false,
+    gameOver: false,
+    winScore: 300 
 };
 
 // Handle window resize
@@ -147,6 +150,9 @@ function castSpell(direction) {
 
 // Game loop
 function gameLoop(timestamp) {
+    if (game.isPaused || game.gameOver || checkWinCondition()) {
+        return; 
+    }
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
@@ -170,6 +176,7 @@ function gameLoop(timestamp) {
             
             if (game.health <= 0) {
                 document.getElementById('spell-feedback').textContent = "GAME OVER";
+
                 return;
             }
         }
@@ -201,6 +208,58 @@ function gameLoop(timestamp) {
     
     requestAnimationFrame(gameLoop);
 }
+
+    function togglePause() {
+        game.isPaused = !game.isPaused;
+        document.getElementById('pause-screen').style.display = game.isPaused ? 'flex' : 'none';
+        if (!game.isPaused) {
+            requestAnimationFrame(gameLoop); // Restart loop if unpausing
+        }
+    }
+
+
+function resumeGame() {
+    document.getElementById('pause-screen').style.display = 'none';s
+    game.isPaused = false;
+   
+}
+
+function restartGame() {
+    // Reset game state
+    game.enemies = [];
+    game.score = 0;
+    game.health = 100;
+    game.difficulty = 1;
+    game.isPaused = false;
+    game.gameOver = false;
+    
+    // Update UI
+    document.getElementById('health').textContent = game.health;
+    document.getElementById('score').textContent = game.score;
+    document.getElementById('win-screen').style.display = 'none';
+    document.getElementById('pause-screen').style.display = 'none';
+    document.getElementById('game-over-screen').style.display = 'none';
+    document.getElementById('spell-feedback').textContent = "Draw to cast spells!";
+    
+    // Restart the game loopen  
+    requestAnimationFrame(gameLoop);
+}
+
+function checkWinCondition() {
+    if (game.score >= game.winScore) {
+        document.getElementById('final-score').textContent = game.score;
+        document.getElementById('win-screen').style.display = 'flex';
+        return true;
+    }
+    return false;
+}
+
+
+
+// Add pause key (ESC)
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') togglePause();
+});
 
 // Start game
 requestAnimationFrame(gameLoop);
