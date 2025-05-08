@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+// Load character images
 const playerImage = new Image();
 playerImage.src = 'https://raw.githubusercontent.com/chairzihan/Cababas-Doodle/731e4ee4094a1640d672963ef22972a504df0330/Cababas%20Default%20Drawn.png';
 const enemyImage = new Image();
