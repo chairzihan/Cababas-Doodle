@@ -4,9 +4,16 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+const playerImage = new Image();
+playerImage.src = 'https://raw.githubusercontent.com/chairzihan/Cababas-Doodle/731e4ee4094a1640d672963ef22972a504df0330/Cababas%20Default%20Drawn.png';
+const enemyImage = new Image();
+enemyImage.src = 'https://raw.githubusercontent.com/chairzihan/Cababas-Doodle/ca376f60e20f2dd8c99822ecb83a9da12add6b72/Wolf.png';
+const backgroundImage = new Image();
+backgroundImage.src = 'https://raw.githubusercontent.com/chairzihan/Cababas-Doodle/160912428246e5728fca954af5fa9f3ca8fbb2d2/magic%20sky.jpg';
+
 // Game state
 const game = {
-    player: { x: 100, y: canvas.height/2, width: 50, height: 50 },
+    player: { x: 150, y: canvas.height/2, width: 250, height: 250, image: playerImage},
     enemies: [],
     lastSpawnTime: 0,
     spawnInterval: 5000,
@@ -31,13 +38,14 @@ window.addEventListener('resize', () => {
 // Enemy class
 class Enemy {
     constructor() {
-        this.width = 60;
-        this.height = 60;
+        this.width = 150;
+        this.height = 150;
         this.x = canvas.width;
         this.y = 100 + Math.random() * (canvas.height - 200);
         this.speed = 2 * game.difficulty;
         this.sequence = this.generateSequence();
         this.currentStep = 0;
+        this.image = enemyImage;
     }
     
     generateSequence() {
@@ -61,10 +69,27 @@ class Enemy {
             'left': '←',
             'right': '→'
         };
-        // Enemy box
 
-        ctx.fillStyle = '#ff5555';
-        ctx.fillRect(this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+        // Draw enemy image with fallback
+        if (enemyImage.complete) {
+            ctx.save();
+            ctx.drawImage(
+                enemyImage,
+                this.x - this.width/2,
+                this.y - this.height/2,
+                this.width,
+                this.height
+            );
+            ctx.restore();
+        } else {
+            ctx.fillStyle = '#8B4513'; // Brown fallback color
+            ctx.fillRect(
+                this.x - this.width/2,
+                this.y - this.height/2,
+                this.width,
+                this.height
+            );
+        }
         
         // Sequence indicators
         this.sequence.forEach((dir, i) => {
@@ -78,7 +103,7 @@ class Enemy {
             
             // Direction text
             ctx.fillStyle = '#000';
-        ctx.font = '14px Arial';
+        ctx.font = '20px Arial';
         ctx.fillText(
             arrowMap[dir], // Use the arrow corresponding to the direction
             this.x - this.width / 2 + i * 20 + 3,
@@ -166,6 +191,29 @@ function gameLoop(timestamp) {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
+
+    //Draw background
+    if (backgroundImage.complete) {
+        // Calculate scaling to cover canvas while maintaining aspect ratio
+        const scale = Math.max(
+            canvas.width / backgroundImage.naturalWidth,
+            canvas.height / backgroundImage.naturalHeight
+        );
+        const width = backgroundImage.naturalWidth * scale;
+        const height = backgroundImage.naturalHeight * scale;
+        const x = (canvas.width - width) / 2;
+        const y = (canvas.height - height) / 2;
+        
+        ctx.drawImage(backgroundImage, x, y, width, height);
+    } else {
+        // Fallback gradient background
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#1e5799');  // Dark blue
+        gradient.addColorStop(1, '#2989d8');  // Light blue
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    
     // Spawn enemies
     if (timestamp - game.lastSpawnTime > game.spawnInterval) {
         game.enemies.push(new Enemy());
@@ -193,13 +241,24 @@ function gameLoop(timestamp) {
     });
     
     // Draw player
-    ctx.fillStyle = '#ff9900';
-    ctx.fillRect(
-        game.player.x - game.player.width/2, 
-        game.player.y - game.player.height/2, 
-        game.player.width, 
-        game.player.height
-    );
+    if (playerImage.complete) {
+        ctx.drawImage(
+            playerImage,
+            game.player.x - game.player.width/2, 
+            game.player.y - game.player.height/2,
+            game.player.width,
+            game.player.height
+        );
+    }   else  {
+    // Fallback to rectangle if image isn't loaded yet
+        ctx.fillStyle = '#ff9900';
+        ctx.fillRect(
+            game.player.x - game.player.width/2, 
+            game.player.y - game.player.height/2, 
+            game.player.width, 
+            game.player.height
+        );
+    }
     
     // Draw enemies
     game.enemies.forEach(enemy => enemy.draw(ctx));
