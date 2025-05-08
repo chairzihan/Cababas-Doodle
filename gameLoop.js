@@ -206,7 +206,7 @@ function gameLoop(timestamp) {
         
         ctx.drawImage(backgroundImage, x, y, width, height);
     } else {
-        // Fallback gradient background
+        // Fallback gradient background in case image isn't loaded yet
         const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
         gradient.addColorStop(0, '#1e5799');  // Dark blue
         gradient.addColorStop(1, '#2989d8');  // Light blue
