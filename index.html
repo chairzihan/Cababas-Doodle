@@ -6,8 +6,34 @@
         <link rel="stylesheet" href="winScreen.css">
         <script src="gameLoop.js" type="module"></script>
         <script src="index.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+    const socket = io();
+    
+    // Update status when server sends updates
+    socket.on('tracking_status', (data) => {
+        console.log("Tracking status:", data.status);
+        // You can update your UI here if needed
+    });
+
+    function startHandControl() {
+        socket.emit('start_camera');
+        console.log("Hand control started");
+    }
+
+    function stopHandControl() {
+        socket.emit('stop_camera');
+        console.log("Hand control stopped");
+    }
+
+    window.startHandControl = startHandControl;
+    window.stopHandControl = stopHandControl;
+
+            });
+        </script>
     </head>
     <body>
+        
         <div id="ui">
             <div>Health: <span id="health">100</span></div>
             <div>Score: <span id="score">0</span></div>
