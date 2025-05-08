@@ -69,7 +69,7 @@ class Enemy {
         
         this.sequence.forEach(dir => {
             const speech = new SpeechSynthesisUtterance(arrowMap[dir]);
-            speech.rate = 2.5;
+            speech.rate = 6.5;
             window.speechSynthesis.speak(speech);
         });
     }
