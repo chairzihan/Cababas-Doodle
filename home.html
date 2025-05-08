@@ -15,14 +15,49 @@
             <button class="start-button">Press to Start</button>
         </a>
         
-        <div class="banner-text">
+        <div class="banner-text" id="intro-text">
             <h1>Mahou Shoujo Cababas</h1>
             <p>Help Cababas fight against the alpha wolves as they try to invade the sky!</p>
-            <p>Swipe using your mouse or finger in the direction of the arrows above the alphas.  Or you can swipe in the direction that text to speech tells you to</p>
-            <p>Press the "f" key on your keyboard to play</p>
-            <p>Press the "d" key on your keyboard to replay the instructions</p>
+            <p>Swipe by cliccking and dragging your mouse or you can move your finger in the direction of the arrows above the alphas.  Text-to-speech will also tell you the direction of the arrows</p>
+            <p>Press the "f" key on your keyboard to play the game</p>
+            <p>Press the "j" key on your keyboard to replay the instructions</p>
         </div>
-        
     </div>
+
+    <script>
+        let currentSpeech = null; // Global variable to hold the current speech
+
+        function speakIntroText(){
+            const introElement = document.getElementById('intro-text');
+            const text = introElement.innerText;
+            const speech = new SpeechSynthesisUtterance(text);
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+            
+            // If there is already speech being spoken, cancel it before speaking the new one
+            if (currentSpeech !== null) {
+                window.speechSynthesis.cancel(); // Cancel any ongoing speech
+            }
+
+            // Set the new speech to the global variable and start speaking it
+            currentSpeech = speech;
+            window.speechSynthesis.speak(speech);
+        }
+
+        window.onload = function() {
+            speakIntroText();
+        };
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'j') {
+                speakIntroText();
+            }
+
+            if (event.key === 'f') {
+                window.location.href = 'index.html'; // Redirect to the game page
+            }
+        });
+    </script>
 </body>
 </html>

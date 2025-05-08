@@ -57,6 +57,22 @@ class Enemy {
             directions[Math.floor(Math.random() * directions.length)]
         );
     }
+
+    announceDirections() {
+        // Announce each direction in the sequence with speech
+        const arrowMap = {
+            'up': 'Up',
+            'down': 'Down',
+            'left': 'Left',
+            'right': 'Right'
+        };
+        
+        this.sequence.forEach(dir => {
+            const speech = new SpeechSynthesisUtterance(arrowMap[dir]);
+            speech.rate = 2.5;
+            window.speechSynthesis.speak(speech);
+        });
+    }
     
     update() {
         this.x -= this.speed;
@@ -217,7 +233,10 @@ function gameLoop(timestamp) {
     
     // Spawn enemies
     if (timestamp - game.lastSpawnTime > game.spawnInterval) {
-        game.enemies.push(new Enemy());
+        const newEnemy = new Enemy();
+        newEnemy.announceDirections(); // Announce directions for the new enemy
+        game.enemies.push(newEnemy);
+
         game.lastSpawnTime = timestamp;
         game.spawnInterval = Math.max(500, game.spawnInterval * 0.95);
         game.difficulty += 0.1;
