@@ -13,6 +13,7 @@ class handDetector():
         self.trackCon = trackCon
 
         self.mpHands = mp.solutions.hands
+        #THEY CHANGED THE FORMATTING OF THE PACKAGE IN NEWER VERSIONS SO YOU CAN'T HAVE CERTAIN VARAIBLES AS PARAMETERS ANYMORE
         self.hands = self.mpHands.Hands(
     static_image_mode=self.mode,
     max_num_hands=self.maxHands,
@@ -108,6 +109,7 @@ def main():
         success, img = cap.read()
         img = detector.findHands(img)
         lmList, bbox = detector.findPosition(img)
+        
         if len(lmList) != 0:
             print(lmList[4])
 
