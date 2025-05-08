@@ -16,3 +16,45 @@
             padding: 10px;
             border-radius: 5px;
         }
+
+        #hand-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+        }
+        
+        #hand-controls button {
+            padding: 8px 15px;
+            margin: 0 5px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #hand-controls button:hover {
+            background: #45a049;
+        }
+        #camera-feedback {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            border: 2px solid #333;
+            z-index: 1000;
+        }
+        
+        #camera-feed {
+            width: 100%;
+            display: block;
+        }
+        
+        #tracking-status {
+            background: black;
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-family: monospace;
+        }
