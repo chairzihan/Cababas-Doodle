@@ -202,7 +202,7 @@ function castSpell(direction) {
 
 // Game loop
 function gameLoop(timestamp) {
-    if (game.isPaused || game.gameOver || checkWinCondition()) {
+    if (game.isPaused || checkGameOver() || checkWinCondition()) {
         return; 
     }
     // Clear canvas
@@ -338,6 +338,15 @@ function checkWinCondition() {
     if (game.score >= game.winScore) {
         document.getElementById('final-score').textContent = game.score;
         document.getElementById('win-screen').style.display = 'flex';
+        return true;
+    }
+    return false;
+}
+
+function checkGameOver() {
+    if (game.health <= 0) {
+        document.getElementById('game-over-screen').style.display = 'flex';
+        game.gameOver = true;
         return true;
     }
     return false;
