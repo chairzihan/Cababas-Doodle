@@ -314,6 +314,7 @@ function resumeGame() {
 }
 
 function restartGame() {
+    cancelAnimationFrame(gameLoop);
     // Reset game state
     game.enemies = [];
     game.score = 0;
@@ -346,6 +347,7 @@ function checkWinCondition() {
 function checkGameOver() {
     if (game.health <= 0) {
         document.getElementById('game-over-screen').style.display = 'flex';
+        document.getElementById('game-over-score').textContent = game.score;
         game.gameOver = true;
         return true;
     }
@@ -364,4 +366,4 @@ requestAnimationFrame(gameLoop);
 
 document.getElementById('resume-button').addEventListener('click', togglePause);
 document.getElementById('restart-button').addEventListener('click', restartGame);
-document.getElementById('play-again').addEventListener('click', restartGame);
+document.getElementById('try-again').addEventListener('click', restartGame);
